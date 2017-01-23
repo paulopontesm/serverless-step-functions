@@ -237,8 +237,13 @@ class ServerlessStepFunctions {
   }
 
   getStateMachineName() {
-    return `${this.service}-${this.stage}-${this.options.state}`;
-  }
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+    return `${this.service}-${this.stage}-${this.options.state}-` + s4();
+   }
 
   getIamRole() {
     return this.provider.request('IAM',
